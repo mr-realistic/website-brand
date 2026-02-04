@@ -1,0 +1,566 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+}
+
+/* Reserve space for fixed navbar + back-row so content isn't hidden */
+body {
+  padding-top: 120px; /* adjusted so content sits closer to back button */
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: clamp(12px, 2vw, 24px) clamp(16px, 4vw, 40px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+    background-color: #000;
+opacity: 100%;
+  z-index: 1000;
+}
+
+/* Page-specific override — hide navbar background on pages that add .no-bg */
+.navbar.no-bg {
+  background: transparent;
+  background-color: transparent;
+  backdrop-filter: none;
+}
+
+
+
+.logo-img {
+  height: clamp(48px, 8vw, 100px);      /* responsive */
+  width: auto;
+  display: block;
+}
+
+/* Back button in navbar */
+.back-btn {
+  background: #fff;
+  color: #000;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.back-btn:hover {
+  transform: translateY(1px);
+}
+
+/* Row that sits below the fixed navbar containing the back button */
+.back-row {
+  position: fixed;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  z-index: 999;
+  /* avoid pushing or resizing the navbar; button will sit visually below it */
+}
+
+.back-row .back-btn {
+  margin: 0;
+  pointer-events: auto;
+}
+
+/* Ensure fixed back-row doesn't block page interactions except the button */
+.back-row {
+  pointer-events: none;
+}
+.back-row .back-btn {
+  pointer-events: auto;
+}
+
+.logo {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* SEARCH */
+.search-container {
+  position: relative;
+}
+
+.search-container input {
+  width: 0;
+  opacity: 0;
+  padding: 8px 12px;
+  transition: width 0.28s ease, opacity 0.2s ease;
+  border-radius: 999px; /* fully rounded */
+  border: 1px solid #ccc; /* optional, makes it visible */
+  outline: none;
+}
+
+.search-container.active input {
+  width: clamp(160px, 28vw, 365px);
+  opacity: 1;
+}
+
+.search-icon {
+  cursor: pointer;
+}
+
+/* HAMBURGER */
+.hamburger {
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: white;
+  margin: 5px 0;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  padding: 100px 30px;
+  gap: 20px;
+  transition: 0.4s ease;
+  z-index: 1100;
+}
+
+.mobile-menu a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url("images/Untitled-1.jpg") center/cover no-repeat;
+}
+
+.hero-overlay {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+}
+
+.hero h1 {
+  font-size: 4rem;
+  letter-spacing: 4px;
+}
+
+/* DROPS */
+.drops {
+  padding: 120px 40px;
+}
+
+.drops h2 {
+  margin-bottom: 40px;
+}
+
+/* SHOP ALL - 3 COLUMN GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 120px 40px;
+}
+
+.product-grid .card {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.product-grid .card img {
+  width: 100%;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  background: #000; /* fills any empty space when aspect ratios differ */
+}
+
+/* Responsive gallery columns */
+@media (max-width: 900px) {
+  .product-page .product-hero {
+    grid-template-columns: 1fr;
+    padding: 80px 20px;
+  }
+  /* Stack: put gallery (images) first, info second */
+  .product-page .product-gallery,
+  .product-page .product-right {
+    grid-column: auto;
+  }
+  .product-page .product-gallery {
+    grid-row: 1;
+  }
+  .product-page .product-right {
+    grid-row: 2;
+    width: 100%;
+    justify-self: center;
+  }
+    padding: 80px 20px;
+  }
+  .product-grid .card img {
+    height: 200px;
+  }
+}
+
+.carousel {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+}
+
+.item {
+  position: relative;
+  min-width: 300px;
+}
+
+.item img {
+  width: 100%;
+  display: block;
+}
+
+.item-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  background: rgba(0,0,0,0.7);
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.item:hover .item-info {
+  opacity: 1;
+}
+
+.item-info p {
+  font-size: 16px;
+}
+
+.item-info span {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* ===============================
+   PRODUCT PAGE – LUXURY ENHANCEMENTS
+   (MERGED SAFELY)
+   =============================== */
+
+/* PRODUCT INFO TYPOGRAPHY */
+.product-page h1 {
+  font-size: 36px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+/* PRODUCT HERO LAYOUT: image left, content right */
+.product-page .product-hero {
+  display: grid;
+  grid-template-columns: 55% 45%; /* info left (wider), image right */
+  gap: 40px;
+  align-items: start;
+  padding: 120px 40px;
+  justify-items: center; /* center items inside each grid cell */
+}
+
+.product-page .product-gallery img,
+.product-page #mainImage {
+  width: 100%;
+  max-width: 480px; /* limit main image size */
+  height: auto;
+  display: block;
+}
+
+.product-page .product-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center images inside their column */
+}
+
+/* Layered slides for product gallery */
+.product-gallery {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  max-width: 520px; /* constrain gallery width so images are contained */
+  overflow: visible; /* allow thumbs to appear below */
+}
+
+.product-gallery .slides {
+  position: relative;
+  width: 100%;
+  height: 420px; /* fixed slide area so images stay contained */
+}
+
+.product-gallery .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.product-gallery .slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.product-gallery .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.95);
+  color: #000;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  border: none;
+  z-index: 4; /* ensure arrows sit above slides */
+}
+
+.product-gallery:hover .arrow {
+  opacity: 1;
+}
+
+.product-gallery .arrow.prev { left: 12px; }
+.product-gallery .arrow.next { right: 12px; }
+
+.product-gallery .thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+  position: relative;
+  z-index: 1; /* thumbs sit beneath slides/arrows */
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, max-height 0.18s ease;
+  pointer-events: none;
+}
+
+.product-gallery .thumbs img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 900px) {
+  .product-gallery .slides {
+    height: 320px;
+  }
+  .product-gallery {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-gallery .slides {
+    height: 260px;
+  }
+  .product-gallery {
+    max-width: 100%;
+  }
+}
+
+/* Reveal thumbs when hovering the main gallery area */
+.product-gallery:hover .thumbs {
+  opacity: 1;
+  max-height: 80px;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.product-page .thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.product-page .product-info {
+  padding: 10px 20px;
+}
+
+/* Desktop: place info on the left, gallery/image on the right */
+.product-page .product-gallery {
+.product-page .product-gallery {
+  grid-column: 2;
+  justify-self: center;
+}
+
+.product-page .product-right {
+  grid-column: 1;
+  justify-self: center;
+  max-width: 100%;
+}
+
+/* Make navbar responsive on small screens */
+@media (max-width: 700px) {
+  .navbar {
+    padding: 12px 18px;
+  }
+  .nav-actions {
+    gap: 8px;
+  }
+  .search-container.active input {
+    width: 60vw;
+  }
+}
+
+@media (max-width: 1024px) {
+  .product-page .product-hero {
+    grid-template-columns: 1fr;
+    padding: 80px 20px;
+  }
+  /* Reset ordering for stacked layout */
+  .product-page .product-gallery,
+  .product-page .product-info {
+    grid-column: auto;
+  }
+}
+
+.product-page .price {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.product-page .tagline {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+/* SIZE BUTTON STATES */
+.product-page .sizes button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.product-page .sizes button.active {
+  background: #000;
+  color: #fff;
+}
+
+/* QUANTITY SELECTOR */
+.product-page .quantity {
+  margin: 20px 0;
+}
+
+.product-page .quantity input {
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #000;
+  text-align: center;
+}
+
+/* BUTTON HOVERS */
+.product-page .btn.primary:hover {
+  opacity: 0.85;
+}
+
+.product-page .btn.secondary:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* SECTION HEADERS */
+.product-page .product-details h2,
+.product-page .size-fit h2,
+.product-page .shipping h2 {
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* RELATED PRODUCTS – FORCE 3 PER ROW */
+.product-page .product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+/* RELATED PRODUCT CARD */
+.product-page .card {
+  text-decoration: none;
+  color: #000;
+  transition: transform 0.4s ease;
+}
+
+.product-page .card img {
+  transition: transform 0.6s ease;
+}
+
+.product-page .card:hover img {
+  transform: scale(1.06);
+}
+
+.product-page .card:hover {
+  transform: translateY(-5px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .product-page .product-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .product-page .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-page .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
