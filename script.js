@@ -1,34 +1,28 @@
 // Search toggle
 const searchIcon = document.querySelector(".search-icon");
 const searchContainer = document.querySelector(".search-container");
-
-searchIcon.addEventListener("click", () => {
-  searchContainer.classList.toggle("active");
-});
+if (searchIcon && searchContainer) {
+  searchIcon.addEventListener("click", () => {
+    searchContainer.classList.toggle("active");
+  });
+}
 
 // Hamburger menu
 const hamburger = document.querySelector(".hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+  });
 
-hamburger.addEventListener("click", () => {
-  mobileMenu.classList.toggle("active");
-});
-
-// Close mobile menu when mouse leaves the menu or the hamburger (desktop).
-if (mobileMenu && hamburger) {
+  // Close mobile menu when mouse leaves the menu or the hamburger (desktop).
   let menuCloseTimer = null;
-  const closeMenu = () => {
-    mobileMenu.classList.remove('active');
-  };
-
+  const closeMenu = () => mobileMenu.classList.remove('active');
   const scheduleClose = () => {
     clearTimeout(menuCloseTimer);
     menuCloseTimer = setTimeout(closeMenu, 250);
   };
-
-  const cancelClose = () => {
-    clearTimeout(menuCloseTimer);
-  };
+  const cancelClose = () => clearTimeout(menuCloseTimer);
 
   mobileMenu.addEventListener('mouseleave', scheduleClose);
   mobileMenu.addEventListener('mouseenter', cancelClose);
