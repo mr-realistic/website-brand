@@ -238,7 +238,7 @@ opacity: 100%;
   .product-grid .card img {
     height: 200px;
   }
-}
+
 
 .carousel {
   display: flex;
@@ -563,4 +563,3 @@ opacity: 100%;
   .product-page .product-grid {
     grid-template-columns: 1fr;
   }
-}
